@@ -1,0 +1,14 @@
+.ant-menu.ant-menu-root.ant-menu-horizontal {
+  border-bottom: none !important;
+}
+
+.nav_btn_gps {
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media screen and (max-width: 1000px) {
+  .nav_btn_gps {
+    display: none;
+  }
+}

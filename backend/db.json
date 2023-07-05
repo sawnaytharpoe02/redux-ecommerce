@@ -1,0 +1,12 @@
+{
+  "users": [
+    {
+      "email": "petter@gmail.com",
+      "password": "$2a$10$dD03w/g0cWBRmnu0SCfdZeLtcAXluagUQ8aU27cOaRNBcULCeTVti",
+      "position": "member",
+      "username": "Petter",
+      "id": 2
+    }
+  ],
+  "products": []
+}
