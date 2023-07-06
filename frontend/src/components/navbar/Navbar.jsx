@@ -30,7 +30,7 @@ const Navbar = () => {
         background: '#fff',
         padding: '1rem',
       }}>
-      <Col xs={18} sm={10} md={4} lg={3}>
+      <Col xs={18} sm={10} md={4} lg={4}>
         <Link
           to="/"
           style={{ color: '#22075e', display: 'flex', alignItems: 'center' }}>
@@ -40,7 +40,7 @@ const Navbar = () => {
           </span>
         </Link>
       </Col>
-      <Col xs={0} sm={0} md={0} lg={17}>
+      <Col xs={0} sm={0} md={0} lg={16}>
         <Menu
           onClick={(e) => setCurrent(e.key)}
           selectedKeys={[current]}

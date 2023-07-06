@@ -6,6 +6,13 @@
       "position": "member",
       "username": "Petter",
       "id": 2
+    },
+    {
+      "email": "hgaymoo@gmail.com",
+      "password": "$2a$10$mmCqvg4NZjzkrz2i35D71ulay2RzrLKA7uATLb/y0kbmseXCyNKui",
+      "position": "member",
+      "username": "Hgay Moo",
+      "id": 3
     }
   ],
   "products": []
