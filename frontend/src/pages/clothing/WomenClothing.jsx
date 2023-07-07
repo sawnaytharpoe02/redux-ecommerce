@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import Loading from '../../components/loading/Loading';
 import ProductCard from '../../components/productCard/ProductCard';
 import { v4 as uuidv4 } from 'uuid';
-import Loading from '../../components/loading/Loading';
 import useProductsData from '../../hooks/useProductsData';
 
-const Home = () => {
-  const url = 'https://fakestoreapi.com/products';
+const WomenClothing = () => {
+  const url = "https://fakestoreapi.com/products/category/women's clothing";
   const { isLoading, products } = useProductsData(url);
 
   return (
@@ -20,4 +19,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default WomenClothing;

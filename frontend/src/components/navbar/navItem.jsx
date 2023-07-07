@@ -6,22 +6,21 @@ import { GiDoubleNecklace } from 'react-icons/gi';
 export const navItems = [
   {
     label: 'All Products',
-    key: '/products',
+    key: '/',
     icon: <VscLayoutMenubar />,
   },
   {
     label: 'Clothing',
-    key: 'clothing',
     icon: <PiTShirtLight />,
     children: [
       {
         label: "Men's Clothing",
-        key: '/men-clothing',
+        key: '/clothing/men',
         icon: <PiTShirtDuotone />,
       },
       {
         label: "Women's Clothing",
-        key: '/women-clothing',
+        key: '/clothing/women',
         icon: <PiDressDuotone />,
       },
     ],
@@ -33,12 +32,12 @@ export const navItems = [
     children: [
       {
         label: 'Jewelery',
-        key: '/jewelery',
+        key: '/others/jewelery',
         icon: <GiDoubleNecklace />,
       },
       {
         label: 'Electronics',
-        key: '/electronics',
+        key: '/others/electronics',
         icon: <VscTools />,
       },
     ],

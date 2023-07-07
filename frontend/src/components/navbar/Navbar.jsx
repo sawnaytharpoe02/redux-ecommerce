@@ -10,7 +10,7 @@ import { BsShop } from 'react-icons/bs';
 import './navbar.scss';
 
 const Navbar = () => {
-  const [current, setCurrent] = useState('');
+  const [current, setCurrent] = useState();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
@@ -20,7 +20,10 @@ const Navbar = () => {
     navigate('/auth');
   };
 
-  console.log(user);
+  const handleRoute = (e) => {
+    setCurrent(e.key);
+    navigate(e.key);
+  };
 
   return (
     <Row
@@ -42,7 +45,7 @@ const Navbar = () => {
       </Col>
       <Col xs={0} sm={0} md={0} lg={16}>
         <Menu
-          onClick={(e) => setCurrent(e.key)}
+          onClick={handleRoute}
           selectedKeys={[current]}
           mode="horizontal"
           items={navItems}

@@ -5,7 +5,6 @@ import './productCard.scss';
 
 const { Meta } = Card;
 const ProductCard = ({ product }) => {
-  console.log(product);
   return (
     <Card
       hoverable
