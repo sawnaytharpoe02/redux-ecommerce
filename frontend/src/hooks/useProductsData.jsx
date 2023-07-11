@@ -1,24 +1,36 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { selectedProduct, setProducts } from '../store/actions/products_action';
 
-const useProductsData = (url) => {
+const useProductsData = (url, type) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [products, setProducts] = useState();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchProducts = async () => {
       setIsLoading(true);
-      const res = await axios.get(url).then((res) => res.data);
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      const response = await axios
+        .get(url)
+        .then((res) => res.data)
+        .catch((err) => console.log(err));
+      // await new Promise((resolve) => setTimeout(resolve, 400));
 
       setIsLoading(false);
-      setProducts(res);
+      if (type === 'product') {
+        dispatch(selectedProduct(response));
+        return;
+      }
+
+      dispatch(setProducts(response));
     };
 
-    fetchProducts();
+    if (url && url !== '') {
+      fetchProducts();
+    }
   }, [url]);
 
-  return { isLoading, products };
+  return { isLoading };
 };
 
 export default useProductsData;

@@ -33,7 +33,7 @@ const Auth = () => {
       const res = await apiCall(endpoint, 'post', values);
       setToken(res.data.accessToken);
       dispatch(authUser(res.data.user));
-      navigate('/');
+      navigate('/products');
     } catch (error) {
       message.open({
         type: TYPE.ERROR,

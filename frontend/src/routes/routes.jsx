@@ -2,11 +2,9 @@ import { createBrowserRouter } from 'react-router-dom';
 import Root from '../layout/Root';
 import AuthLayout from '../layout/AuthLayout';
 import Auth from '../pages/authPage/Auth';
-import Home from '../pages/home/Home';
-import MenClothing from '../pages/clothing/MenClothing';
-import WomenClothing from '../pages/clothing/WomenClothing';
-import Electronics from '../pages/others/electronics';
-import Jewelery from '../pages/others/Jewelery';
+import ProductList from '../pages/productList/ProductList';
+import PageNotFound from '../pages/pageNotFound/PageNotFound';
+import ProductDetail from '../pages/productDetail/ProductDetail';
 
 const router = createBrowserRouter([
   {
@@ -14,19 +12,23 @@ const router = createBrowserRouter([
     element: <Root />,
     children: [
       {
-        path: '',
-        element: <Home />,
+        path: 'products/',
+        element: <ProductList />,
+      },
+      {
+        path: 'products/:productId',
+        element: <ProductDetail />,
       },
       {
         path: 'clothing/',
         children: [
           {
             path: 'men',
-            element: <MenClothing />,
+            element: <ProductList />,
           },
           {
             path: 'women',
-            element: <WomenClothing />,
+            element: <ProductList />,
           },
         ],
       },
@@ -35,13 +37,17 @@ const router = createBrowserRouter([
         children: [
           {
             path: 'electronics',
-            element: <Electronics />,
+            element: <ProductList />,
           },
           {
             path: 'jewelery',
-            element: <Jewelery />,
+            element: <ProductList />,
           },
         ],
+      },
+      {
+        path: '*',
+        element: <PageNotFound />,
       },
     ],
   },

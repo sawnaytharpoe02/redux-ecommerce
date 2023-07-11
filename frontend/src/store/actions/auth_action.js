@@ -1,7 +1,9 @@
+import { ActionTypes } from '../constants/action-types';
+
 export const authUser = (user) => {
   return async (dispatch) => {
     dispatch({
-      type: 'AUTH_USER',
+      type: ActionTypes.AUTH_USER,
       payload: user,
     });
   };
@@ -10,7 +12,7 @@ export const authUser = (user) => {
 export const logoutUser = () => {
   return async (dispatch) => {
     dispatch({
-      type: 'LOGOUT_USER',
+      type: ActionTypes.LOGOUT_USER,
     });
   };
 };

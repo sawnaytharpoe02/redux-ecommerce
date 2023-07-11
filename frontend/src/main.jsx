@@ -12,14 +12,14 @@ import './index.scss';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
-    <React.StrictMode>
-      <ConfigProvider theme={theme}>
-        <PersistGate persistor={persistor}>
-          <RouterProvider router={router}>
-            <App />
-          </RouterProvider>
-        </PersistGate>
-      </ConfigProvider>
-    </React.StrictMode>
+    {/* <React.StrictMode> */}
+    <ConfigProvider theme={theme}>
+      <PersistGate persistor={persistor}>
+        <RouterProvider router={router}>
+          <App />
+        </RouterProvider>
+      </PersistGate>
+    </ConfigProvider>
+    {/* </React.StrictMode> */}
   </Provider>
 );
