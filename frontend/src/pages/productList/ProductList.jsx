@@ -4,16 +4,17 @@ import { v4 as uuidv4 } from 'uuid';
 import Loading from '../../components/loading/Loading';
 import useProductsData from '../../hooks/useProductsData';
 import { useLocation } from 'react-router';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import Auth from '../authPage/Auth';
 
 const ProductList = () => {
   const { pathname } = useLocation();
   const routePathName = pathname.split('/').pop();
   const [url, setUrl] = useState('');
   const path = 'https://fakestoreapi.com/products/';
+
   useEffect(() => {
     const categoryMapping = {
-      products: 'https://fakestoreapi.com/products/',
       women: `${path}category/${encodeURIComponent("women's clothing")}`,
       men: `${path}category/${encodeURIComponent("men's clothing")}`,
       electronics: `${path}category/electronics`,
@@ -26,7 +27,7 @@ const ProductList = () => {
           return categoryMapping[category];
         }
       }
-      return '';
+      return path;
     };
 
     setUrl(getCategoryUrl(routePathName));
@@ -34,15 +35,18 @@ const ProductList = () => {
 
   const { isLoading } = useProductsData(url, 'products');
   const { products } = useSelector((state) => state.products);
+  const { user } = useSelector((state) => state.auth);
 
-  return (
-    <div className="products_container">
+  return user ? (
+    <div className="products_container" style={{ marginTop: '3.2rem' }}>
       {isLoading ? (
         <Loading />
       ) : (
         products?.map((p) => <ProductCard key={uuidv4()} product={p} />)
       )}
     </div>
+  ) : (
+    <Auth />
   );
 };
 

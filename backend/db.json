@@ -13,6 +13,13 @@
       "position": "member",
       "username": "Hgay Moo",
       "id": 3
+    },
+    {
+      "email": "duralumin@gmail.com",
+      "password": "$2a$10$JUJrCthp4/pNoMPcdaRzGuwiwgXQl7DI0wuGfkofKr0PMuKHxvIUW",
+      "position": "member",
+      "username": "Duralumin",
+      "id": 4
     }
   ],
   "products": []

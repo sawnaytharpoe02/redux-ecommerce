@@ -2,6 +2,10 @@
   border-bottom: none !important;
 }
 
+.respon-screen.ant-menu-light.ant-menu-root.ant-menu-inline {
+  border-inline-end: none !important;
+}
+
 .nav_btn_gps {
   display: flex;
   justify-content: flex-end;
@@ -11,8 +15,50 @@
   display: none !important;
 }
 
-@media screen and (max-width: 1000px) {
-  .nav_btn_gps {
-    display: none;
+.ant-badge-count.ant-scroll-number {
+  transform: translate(-24%, -50%) !important;
+}
+
+.navigation_bar {
+  width: 100%;
+  justify-content: space-between !important;
+  align-items: center;
+  background-color: rgba($color: #fff, $alpha: 0.95);
+  padding: 1rem;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  box-shadow: rgba(0, 0, 0, 0.45) 0px 18px 22px -18px;
+}
+.cart_container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+
+  .cart {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgb(223, 223, 223);
+    padding-bottom: 1rem;
+    gap: 1rem;
+
+    .cart-btn-gps {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .cart-action {
+      .cart-price {
+        font-size: 1rem;
+      }
+
+      .delete-cart {
+        text-decoration: underline;
+        color: rgb(255, 56, 56);
+        cursor: pointer;
+      }
+    }
   }
 }

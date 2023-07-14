@@ -6,7 +6,7 @@ import { GiDoubleNecklace } from 'react-icons/gi';
 export const navItems = [
   {
     label: 'All Products',
-    key: '/products',
+    key: '/',
     icon: <VscLayoutMenubar />,
   },
   {
