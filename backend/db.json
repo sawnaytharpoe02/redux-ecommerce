@@ -20,7 +20,13 @@
       "position": "member",
       "username": "Duralumin",
       "id": 4
+    },
+    {
+      "email": "cat@gmail.com",
+      "password": "$2a$10$JEA9UQQ9G2zly94SOvxYj..RPc4hwwgF1RFeD9cwbm7c7Uqvcp.2e",
+      "position": "member",
+      "username": "Cat",
+      "id": 5
     }
-  ],
-  "products": []
+  ]
 }

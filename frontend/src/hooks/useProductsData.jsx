@@ -12,7 +12,16 @@ const useProductsData = (url, type) => {
       setIsLoading(true);
       const response = await axios
         .get(url)
-        .then((res) => res.data)
+        .then((res) => {
+          if (type === 'product') {
+            return { ...res.data, unitPrice: res.data.price, quantity: 1 };
+          }
+          return res.data.map((row) => ({
+            ...row,
+            quantity: 1,
+            unitPrice: row.price,
+          }));
+        })
         .catch((err) => console.log(err));
       // await new Promise((resolve) => setTimeout(resolve, 400));
 

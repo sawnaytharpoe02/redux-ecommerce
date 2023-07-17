@@ -9,11 +9,38 @@ export const addToCart = (item) => {
   };
 };
 
-export const deleteCart = (item) => {
+export const deleteCart = (itemId) => {
   return async (dispatch) => {
     dispatch({
       type: ActionTypes.DELETE_CART,
-      payload: item,
+      payload: itemId,
+    });
+  };
+};
+
+export const increaseQuantity = (itemId) => {
+  return async (dispatch) => {
+    dispatch({
+      type: ActionTypes.INCREASE_QUANTITY,
+      payload: itemId,
+    });
+  };
+};
+
+export const decreaseQuantity = (itemId) => {
+  return async (dispatch) => {
+    dispatch({
+      type: ActionTypes.DECREASE_QUANTITY,
+      payload: itemId,
+    });
+  };
+};
+
+export const setTotalCartPrice = (itemId) => {
+  return async (dispatch) => {
+    dispatch({
+      type: ActionTypes.SET_TOTAL_CART_PRICE,
+      payload: itemId,
     });
   };
 };

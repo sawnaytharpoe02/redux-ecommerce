@@ -11,7 +11,6 @@ app.db = router.db;
 const rules = auth.rewriter({
   // Permission rules
   users: 600,
-  products: 640,
 });
 
 // You must apply the auth middleware before the router

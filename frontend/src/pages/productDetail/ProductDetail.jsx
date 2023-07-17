@@ -2,13 +2,15 @@ import React from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { Button, Card, Tag, Rate, Row, Col } from 'antd';
 import useProductsData from '../../hooks/useProductsData';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { BsFillCartPlusFill } from 'react-icons/bs';
 import DetailProductLoading from '../../components/loading/DetailProductLoading';
 import './productDetail.scss';
+import { addToCart } from '../../store/actions';
 
 const { Meta } = Card;
 const ProductDetail = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   let { productId } = useParams();
 
@@ -17,12 +19,16 @@ const ProductDetail = () => {
 
   const { product } = useSelector((state) => state.products);
 
+  const handleAddToCart = () => {
+    dispatch(addToCart(product));
+  };
+
   return (
     <div style={{ padding: '2.5rem' }}>
       <Button
         onClick={() => navigate(-1)}
         size="large"
-        style={{ marginBottom: '1.4rem' }}>
+        style={{ marginBottom: '1.4rem', marginTop: '4rem' }}>
         To Previous
       </Button>
 
@@ -51,7 +57,11 @@ const ProductDetail = () => {
                   </div>
                   <Tag color="#531dab">{product?.category.toUpperCase()}</Tag>
                   <p>{product?.description}</p>
-                  <Button type="primary" ghost icon={<BsFillCartPlusFill />}>
+                  <Button
+                    onClick={handleAddToCart}
+                    type="primary"
+                    ghost
+                    icon={<BsFillCartPlusFill />}>
                     Add to Cart
                   </Button>
                 </div>

@@ -1,10 +1,5 @@
 import React, { useState } from 'react';
-import {
-  MenuOutlined,
-  DeleteOutlined,
-  MinusOutlined,
-  PlusOutlined,
-} from '@ant-design/icons';
+import { MenuOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import {
   Menu,
   Button,
@@ -14,10 +9,17 @@ import {
   Space,
   Tooltip,
   Avatar,
-  Radio,
   Badge,
+  Empty,
+  Popconfirm,
 } from 'antd';
-import { deleteCart, logoutUser } from '../../store/actions';
+import {
+  increaseQuantity,
+  decreaseQuantity,
+  deleteCart,
+  logoutUser,
+  setTotalCartPrice,
+} from '../../store/actions';
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -27,11 +29,13 @@ import { MdAddShoppingCart } from 'react-icons/md';
 import { PiShoppingCartLight } from 'react-icons/pi';
 import { v4 as uuidv4 } from 'uuid';
 import './navbar.scss';
+import { useEffect } from 'react';
 
 const Navbar = () => {
   const [current, setCurrent] = useState();
   const [openCart, setOpenCart] = useState(false);
   const [navOpen, setNavOpen] = useState(false);
+  const [checkout, setCheckout] = useState(0);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -48,13 +52,28 @@ const Navbar = () => {
     navigate(e.key);
   };
 
-  const handleReduceProduct = () => {};
+  const handleIncreaseProdcut = (id) => {
+    dispatch(increaseQuantity(id));
+    dispatch(setTotalCartPrice(id));
+  };
 
-  const handleIncreaseProdcut = () => {};
+  const handleDecreaseProduct = (id) => {
+    dispatch(decreaseQuantity(id));
+    dispatch(setTotalCartPrice(id));
+  };
 
   const handleDeleteCart = (id) => {
     dispatch(deleteCart(id));
   };
+
+  const handleCheckout = () => {
+    const result = items?.reduce((a, c) => a + c?.price, 0);
+    setCheckout(result);
+  };
+
+  useEffect(() => {
+    handleCheckout();
+  }, [handleIncreaseProdcut, handleDecreaseProduct]);
 
   return (
     <>
@@ -83,7 +102,7 @@ const Navbar = () => {
               {user?.username}
             </Button>
           </Tooltip>
-          <Badge count={items.length}>
+          <Badge count={items?.length}>
             <Button
               type="primary"
               onClick={() => setOpenCart(true)}
@@ -91,61 +110,71 @@ const Navbar = () => {
               <PiShoppingCartLight style={{ fontSize: '1.2rem' }} />
             </Button>
           </Badge>
-          <Button type="primary" className="log_out-btn" onClick={handleLogout}>
-            Logout
-          </Button>
+          <Popconfirm
+            placement="bottomRight"
+            title="Logout"
+            description="Are you sure to logout ?"
+            onConfirm={handleLogout}
+            okText="Yes"
+            cancelText="No">
+            <Button type="primary" className="log_out-btn">
+              Logout
+            </Button>
+          </Popconfirm>
         </Col>
         <Col lg={0}>
           <Button
             icon={<MenuOutlined />}
             onClick={() => setNavOpen(true)}></Button>
-          {/* Nav menu drawer */}
-          <Drawer
-            title={
-              <span style={{ display: 'flex', alignItems: 'center' }}>
-                <MdAddShoppingCart
-                  style={{ fontSize: '1.3rem', marginRight: '.45rem' }}
-                />
-                Oh!LucyShop
-              </span>
-            }
-            placement="right"
-            size="default"
-            open={navOpen}
-            onClose={() => setNavOpen(false)}
-            extra={
-              <Space>
-                <Button type="primary" onClick={() => setNavOpen(false)}>
-                  Close
-                </Button>
-              </Space>
-            }>
-            <Row style={{ minWidth: '100%' }}>
-              <Col xs={24}>
-                <Menu
-                  className="respon-screen"
-                  style={{
-                    width: '100%',
-                  }}
-                  onClick={handleRoute}
-                  selectedKeys={[current]}
-                  mode="inline"
-                  items={navItems}
-                />
-              </Col>
-            </Row>
-          </Drawer>
         </Col>
       </Row>
 
+      {/* Nav menu drawer */}
+      <Drawer
+        title={
+          <span style={{ display: 'flex', alignItems: 'center' }}>
+            <BsShop style={{ fontSize: '1.3rem', marginRight: '.4rem' }} />
+            Oh!LucyShop
+          </span>
+        }
+        placement="right"
+        size="default"
+        open={navOpen}
+        onClose={() => setNavOpen(false)}
+        extra={
+          <Space>
+            <Button type="primary" onClick={() => setNavOpen(false)}>
+              Close
+            </Button>
+          </Space>
+        }>
+        <Row style={{ minWidth: '100%' }}>
+          <Col xs={24}>
+            <Menu
+              className="respon-screen"
+              style={{
+                width: '100%',
+              }}
+              onClick={handleRoute}
+              selectedKeys={[current]}
+              mode="inline"
+              items={navItems}
+            />
+          </Col>
+        </Row>
+      </Drawer>
+
       {/* Shop Cart Drawer */}
       <Drawer
+        className="cart_drawer"
         title={
           <span style={{ display: 'flex', alignItems: 'center' }}>
             <MdAddShoppingCart
               style={{ fontSize: '1.3rem', marginRight: '.45rem' }}
             />
-            Shopping Cart
+            <Badge count={items.length} offset={[30, 5]}>
+              <p>Shopping Cart</p>
+            </Badge>
           </span>
         }
         placement="right"
@@ -159,44 +188,64 @@ const Navbar = () => {
             </Button>
           </Space>
         }>
-        <div className="cart_container">
-          {items?.map((item) => (
-            <div key={uuidv4()} className="cart">
-              <div>
-                <Avatar
-                  src={item?.image}
-                  size={100}
-                  shape="square"
-                  style={{ borderColor: '#eaeaea', padding: '.5rem' }}
-                />
+        <div>
+          {checkout !== 0 ? (
+            <div className="cart_container">
+              <div className="cart_body">
+                {items?.map((item) => (
+                  <div key={uuidv4()} className="cart">
+                    <div>
+                      <Avatar
+                        src={item?.image}
+                        size={100}
+                        shape="square"
+                        style={{ borderColor: '#eaeaea', padding: '.5rem' }}
+                      />
+                    </div>
+                    <div className="cart-btn-gps">
+                      <Button
+                        type="primary"
+                        size="small"
+                        shape="circle"
+                        onClick={() => {
+                          handleDecreaseProduct(item.id);
+                        }}>
+                        <MinusOutlined />
+                      </Button>
+                      <span>{item.quantity}</span>
+                      <Button
+                        type="primary"
+                        size="small"
+                        shape="circle"
+                        onClick={() => {
+                          handleIncreaseProdcut(item.id);
+                        }}>
+                        <PlusOutlined />
+                      </Button>
+                    </div>
+                    <div className="cart-action">
+                      <div className="cart-price">${item.price}</div>
+                      <p
+                        className="delete-cart"
+                        onClick={() => handleDeleteCart(item.id)}>
+                        Remove
+                      </p>
+                    </div>
+                  </div>
+                ))}
               </div>
-              <div className="cart-btn-gps">
-                <Button
-                  type="primary"
-                  size="small"
-                  shape="circle"
-                  onClick={() => handleReduceProduct}>
-                  <MinusOutlined />
+              <div className="cart_footer">
+                <Button block type="primary" size="large">
+                  Checkout&nbsp; - &nbsp;${checkout?.toFixed(2)}
                 </Button>
-                <span>1</span>
-                <Button
-                  type="primary"
-                  size="small"
-                  shape="circle"
-                  onClick={() => handleIncreaseProdcut}>
-                  <PlusOutlined />
-                </Button>
-              </div>
-              <div className="cart-action">
-                <div className="cart-price">${item.price}</div>
-                <p
-                  className="delete-cart"
-                  onClick={() => handleDeleteCart(item.id)}>
-                  Remove
-                </p>
               </div>
             </div>
-          ))}
+          ) : (
+            <Empty
+              style={{ marginTop: '20vh' }}
+              description="No Shopping Cart!"
+            />
+          )}
         </div>
       </Drawer>
     </>

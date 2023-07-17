@@ -9,44 +9,49 @@ import { addToCart } from '../../store/actions';
 const { Meta } = Card;
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
-  const { products } = useSelector((state) => state.products);
 
   const handleAddToCart = () => {
     dispatch(addToCart(product));
   };
   return (
-    <Card
-      className="card"
-      cover={
-        <img alt={product.title} src={product.image} className="product_img" />
-      }>
-      <Link to={`/products/${product?.id}`} style={{ cursor: 'pointer' }}>
-        <Meta
-          title={product.title}
-          description={
-            product.description.length > 20
-              ? product.description.split(' ').slice(0, 8).join(' ') + ' ...'
-              : product.description
-          }
-        />
-      </Link>
-      <div style={{ margin: '8px 0' }}>
-        <Rate disabled defaultValue={product.rating.rate} />
-        <span>({product.rating.count})</span>
-      </div>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifySelf: 'flex-end',
-          justifyContent: 'space-between',
-        }}>
-        <p style={{ fontWeight: '600' }}>${product.price}</p>
-        <Button type="primary" icon={<BsCartPlus />} onClick={handleAddToCart}>
+    <div className="card_container">
+      <Card
+        className="card"
+        cover={
+          <img
+            alt={product.title}
+            src={product.image}
+            className="product_img"
+          />
+        }>
+        <Link to={`/products/${product?.id}`} style={{ cursor: 'pointer' }}>
+          <Meta
+            title={product.title}
+            description={
+              product.description.length > 10
+                ? product.description.split(' ').slice(0, 5).join(' ') + ' ...'
+                : product.description
+            }
+          />
+        </Link>
+        <div
+          style={{
+            margin: '8px 0',
+          }}>
+          <Rate disabled defaultValue={product.rating.rate} />
+          <span>({product.rating.count})</span>
+          <p style={{ fontWeight: '600' }}>Price - ${product.price}</p>
+        </div>
+        <Button
+          type="primary"
+          style={{ marginTop: '1.2rem' }}
+          block
+          icon={<BsCartPlus />}
+          onClick={handleAddToCart}>
           Add to cart
         </Button>
-      </div>
-    </Card>
+      </Card>
+    </div>
   );
 };
 

@@ -3,7 +3,7 @@ import { LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Form, Input, Card, Space, message } from 'antd';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { apiCall } from '../../services/apiService';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Select, Row, Col } from 'antd';
 import { setToken } from '../../utils/storage';
 import { authUser } from '../../store/actions';
@@ -31,13 +31,20 @@ const Auth = () => {
     try {
       const endpoint = isLogin ? 'login' : 'register';
       const res = await apiCall(endpoint, 'post', values);
-      setToken(res.data.accessToken);
-      dispatch(authUser(res.data.user));
-      navigate('/');
-    } catch (error) {
+      if (res.status === 200) {
+        dispatch(authUser(res.data.user));
+        setToken(res.data.accessToken);
+        message.open({
+          type: TYPE.SUCCESS,
+          content: MESSAGE.LOGIN_SUCCESS,
+        });
+        navigate('/');
+      }
+    } catch (err) {
+      const { data } = err.response;
       message.open({
         type: TYPE.ERROR,
-        content: MESSAGE.AUTH_FAILED,
+        content: data,
       });
     }
   };

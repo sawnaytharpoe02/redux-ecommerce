@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Loading from '../../components/loading/Loading';
 import useProductsData from '../../hooks/useProductsData';
 import { useLocation } from 'react-router';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Auth from '../authPage/Auth';
 
 const ProductList = () => {

@@ -5,7 +5,7 @@ export const TYPE = {
 };
 
 export const MESSAGE = {
-  AUTH_FAILED: 'Authentication Failed!',
+  LOGIN_SUCCESS: 'Login successfully!',
   USERNAME_REQUIRE: 'Please enter user name!',
   EMAIL_REQUIRE: 'Please enter email address!',
   PASSWORD_REQUIRE: 'Please enter password!',
