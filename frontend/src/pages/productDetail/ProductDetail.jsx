@@ -15,7 +15,7 @@ const ProductDetail = () => {
   let { productId } = useParams();
 
   const url = `https://fakestoreapi.com/products/${productId}`;
-  const { isLoading } = useProductsData(url, 'product');
+  const { isLoading } = useProductsData(url, 'product_detail');
 
   const { product } = useSelector((state) => state.products);
 

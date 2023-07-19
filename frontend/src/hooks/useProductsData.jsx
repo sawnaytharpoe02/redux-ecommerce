@@ -13,13 +13,19 @@ const useProductsData = (url, type) => {
       const response = await axios
         .get(url)
         .then((res) => {
-          if (type === 'product') {
-            return { ...res.data, unitPrice: res.data.price, quantity: 1 };
+          if (type === 'product_detail') {
+            return {
+              ...res.data,
+              quantity: 1,
+              unitPrice: res.data.price,
+              isAddedInCart: false,
+            };
           }
           return res.data.map((row) => ({
             ...row,
             quantity: 1,
             unitPrice: row.price,
+            isAddedInCart: false,
           }));
         })
         .catch((err) => console.log(err));

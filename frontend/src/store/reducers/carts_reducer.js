@@ -7,7 +7,10 @@ const initialState = {
 export const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionTypes.ADD_TO_CART:
-      return { ...state, items: [...state.items, action.payload] };
+      return {
+        ...state,
+        items: [...state.items, action.payload],
+      };
     case ActionTypes.DELETE_CART:
       return {
         ...state,

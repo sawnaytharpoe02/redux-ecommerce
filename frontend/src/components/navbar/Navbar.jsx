@@ -78,7 +78,7 @@ const Navbar = () => {
   return (
     <>
       <Row className="navigation_bar">
-        <Col xs={18} sm={10} md={4} lg={4}>
+        <Col xs={8} sm={10} md={4} lg={4}>
           <Link
             to="/"
             style={{ color: '#22075e', display: 'flex', alignItems: 'center' }}>
@@ -88,7 +88,7 @@ const Navbar = () => {
             </span>
           </Link>
         </Col>
-        <Col xs={0} sm={0} md={0} lg={16}>
+        <Col xs={0} sm={0} md={14} lg={16}>
           <Menu
             onClick={handleRoute}
             selectedKeys={[current]}
@@ -96,8 +96,12 @@ const Navbar = () => {
             items={navItems}
           />
         </Col>
-        <Col xs={0} sm={8} md={6} lg={4} className="nav_btn_gps">
-          <Tooltip placement="bottom" title={user?.position} trigger="click">
+        <Col xs={16} sm={14} md={6} lg={4} className="nav_btn_gps">
+          <Tooltip
+            className="profile_tap"
+            placement="bottom"
+            title={user?.position}
+            trigger="click">
             <Button type="dashed" className="profile-btn">
               {user?.username}
             </Button>
@@ -121,9 +125,10 @@ const Navbar = () => {
               Logout
             </Button>
           </Popconfirm>
-        </Col>
-        <Col lg={0}>
           <Button
+            className="hamburger_menu"
+            type="primary"
+            ghost
             icon={<MenuOutlined />}
             onClick={() => setNavOpen(true)}></Button>
         </Col>
@@ -150,6 +155,19 @@ const Navbar = () => {
         }>
         <Row style={{ minWidth: '100%' }}>
           <Col xs={24}>
+            <Tooltip
+              className="profile_tap"
+              placement="bottom"
+              title={user?.position}
+              trigger="click">
+              <Button
+                type="dashed"
+                className="profile-btn"
+                block
+                style={{ marginBottom: '1.2rem' }}>
+                {user?.username}
+              </Button>
+            </Tooltip>
             <Menu
               className="respon-screen"
               style={{
@@ -160,6 +178,21 @@ const Navbar = () => {
               mode="inline"
               items={navItems}
             />
+            <Popconfirm
+              placement="bottomRight"
+              title="Logout"
+              description="Are you sure to logout ?"
+              onConfirm={handleLogout}
+              okText="Yes"
+              cancelText="No">
+              <Button
+                block
+                type="primary"
+                className="log_out-btn"
+                style={{ marginTop: '1.2rem' }}>
+                Logout
+              </Button>
+            </Popconfirm>
           </Col>
         </Row>
       </Drawer>

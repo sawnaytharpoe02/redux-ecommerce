@@ -6,6 +6,7 @@ import useProductsData from '../../hooks/useProductsData';
 import { useLocation } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import Auth from '../authPage/Auth';
+import './productList.scss';
 
 const ProductList = () => {
   const { pathname } = useLocation();
@@ -38,7 +39,7 @@ const ProductList = () => {
   const { user } = useSelector((state) => state.auth);
 
   return user ? (
-    <div className="products_container" style={{ marginTop: '3.2rem' }}>
+    <div className="products_container">
       {isLoading ? (
         <Loading />
       ) : (
